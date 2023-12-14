@@ -32,6 +32,8 @@ def celsius_to_fahrenheit(celsius):
 
 
 # Задача 7*: Функция поиска количества гласных в строке
+# Подсказа: используйте цикл foreach foreach (char c in s) где s строка для проверки а c  каждый ее символ
+# аналог in  в c# - vowels.Contains(c) где символ строки
 def count_vowels(s):
     vowels = "аиоуеэАИОУЕЭ"
     return sum(1 for char in s if char in vowels)
