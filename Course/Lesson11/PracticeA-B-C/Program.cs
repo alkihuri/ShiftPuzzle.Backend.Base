@@ -76,7 +76,7 @@ public class StudetnFileService
 {
     if (!File.Exists(filePath))
     {
-        Console.WriteLine("Файл не найден.");
+        Console.WriteLine("О©╫О©╫О©╫О©╫ О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫.");
         return;
     }
 
@@ -88,20 +88,20 @@ public class StudetnFileService
             var parts = line.Split(',');
             if (parts.Length < 3)
             {
-                continue; // Переход к следующей строке, если формат неверен
+                continue; // О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫, О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫
             }
 
             var studentName = parts[0];
             var student = new Student(studentName);
 
-            // Чтение оценок
+            // О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫
             var gradesPart = parts[1].Split(':');
             if (gradesPart.Length == 2 && int.TryParse(gradesPart[1], out int grade))
             {
                 student.Grades.Add(gradesPart[0], grade);
             }
 
-            // Чтение данных о посещаемости
+            // О©╫О©╫О©╫О©╫О©╫О©╫ О©╫О©╫О©╫О©╫О©╫О©╫ О©╫ О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
             var attendancePart = parts[2].Split(':');
             if (attendancePart.Length == 2 && DateTime.TryParse(attendancePart[0], out DateTime date) && bool.TryParse(attendancePart[1], out bool wasPresent))
             {
@@ -128,53 +128,31 @@ class SimpleDB
 
     public void SaveDB()
     {
-        fileService.SaveToFile();
+        Console.WriteLine("Funcional ne realizovan...");
+        //  practice B;
     }
 
     public void LoadDB()
     {
-        fileService.LoadFromFile();
+        Console.WriteLine("Funcional ne realizovan...");
+        //  practice B;
     }
     public void AddStudent(string name)
     {
-        var student = new Student(name);
-        students[name] = student;
-        Console.WriteLine($"Student {name} dobavlen.");
+        Console.WriteLine("Funcional ne realizovan...");
+         //  practice A;
     }
 
     public void RemoveStudent(string name)
     {
-        if (students.Remove(name))
-        {
-            Console.WriteLine($"Student {name} udalen.");
-        }
-        else
-        {
-            Console.WriteLine("Student ne najden.");
-        }
+        Console.WriteLine("Funcional ne realizovan...");
+         //  practice A;
     }
 
     public void ShowStudentInfo(string name)
     {
-        if (students.ContainsKey(name))
-        {
-            var student = students[name];
-            Console.WriteLine($"Imya: {student.Name}");
-            Console.WriteLine("Ocenki:");
-            foreach (var grade in student.Grades)
-            {
-                Console.WriteLine($"{grade.Key}: {grade.Value}");
-            }
-            Console.WriteLine("Posechaemost':");
-            foreach (var entry in student.Attendance)
-            {
-                Console.WriteLine($"{entry.Key}: {(entry.Value ? "Prisutstvoval" : "Otsutstvoval")}");
-            }
-        }
-        else
-        {
-            Console.WriteLine("Student ne najden.");
-        }
+        Console.WriteLine("Funcional ne realizovan...");
+         //  practice A;
     }
 
     public Student GetStudent(string name)
