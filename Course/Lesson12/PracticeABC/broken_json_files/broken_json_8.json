@@ -1,0 +1,13 @@
+
+    "reviews": [
+        {
+            "product": "Laptop",
+            "rating": 5,
+            "comment": "Great!"
+        },
+        {
+            "product": "Camera",
+            "rating": 4
+        }
+    ]
+}

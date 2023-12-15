@@ -1,0 +1,11 @@
+{
+    "discounts": [
+        {
+            "product": "TV",
+            "discount": "15%"
+        },
+        {
+            "product": "Camera",
+            "discount": "10%"
+        }
+    ]

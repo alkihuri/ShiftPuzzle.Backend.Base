@@ -1,0 +1,9 @@
+{
+    "order": {
+        "id": 12345,
+        "items": [
+            "Laptop",
+            "Camera"
+        ],
+        "total": 1700
+    }
