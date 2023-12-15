@@ -1,0 +1,6 @@
+{
+    "orderId": "ORD10245",
+    "customerName": "Анна Петрова",
+    "totalPrice": 5600,
+    "items": ["Ноутбук", "Мышь"]
+}
