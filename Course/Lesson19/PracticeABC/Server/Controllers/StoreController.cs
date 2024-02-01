@@ -156,8 +156,7 @@ public class StoreController : ControllerBase
     {
         return Ok(Items);
     }
-
-    #region PRACTICE_B
+ 
 
     private List<Product> ConvertTextDBToList(string json)
     {
@@ -183,8 +182,7 @@ public class StoreController : ControllerBase
     }
 
     #endregion
-
-    #region PRACTICE_A
+ 
 
     private string  ConvertDBtoJson()
     {
@@ -201,8 +199,7 @@ public class StoreController : ControllerBase
     { 
         WriteTiDB(ConvertDBtoJson());
     }
-
-    #endregion PRACTICE_A
+ 
 
 
 }
