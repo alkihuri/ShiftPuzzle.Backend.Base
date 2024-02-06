@@ -1,13 +1,10 @@
-namespace PracticeABC;
-
+﻿namespace PracticeABC;  
 using System.Data.SQLite;
 using System.Collections.Generic;
 
-
-
-
-public class SQLLiteProductRepository : IProductRepository
+public class SQLLiteUpperCaseRepository : IProductRepository
 {
+
     private string _connectionString;
     private List<Product> products = new List<Product>();
     private const string CreateTableQuery = @"
@@ -17,14 +14,14 @@ public class SQLLiteProductRepository : IProductRepository
             Price REAL NOT NULL,
             Stock INTEGER NOT NULL
         )";
-    public SQLLiteProductRepository(string connectionString)
+    public SQLLiteUpperCaseRepository(string connectionString)
     {
-         _connectionString = connectionString;
+        _connectionString = connectionString;
         InitializeDatabase();
         ReadDataFromDatabase();
     }
 
-   
+
 
 
     private void ReadDataFromDatabase()
@@ -34,13 +31,13 @@ public class SQLLiteProductRepository : IProductRepository
 
     private void InitializeDatabase()
     {
-        SQLiteConnection connection = new SQLiteConnection(_connectionString); 
+        SQLiteConnection connection = new SQLiteConnection(_connectionString);
         Console.WriteLine("База данных :  " + _connectionString + " создана");
         connection.Open();
         SQLiteCommand command = new SQLiteCommand(CreateTableQuery, connection);
         command.ExecuteNonQuery();
-             
-        
+
+
     }
 
     public List<Product> GetAllProducts()
@@ -56,7 +53,7 @@ public class SQLLiteProductRepository : IProductRepository
                 {
                     while (reader.Read())
                     {
-                        Product product = new Product(reader["Name"].ToString(),Convert.ToDouble(reader["Price"]),Convert.ToInt32(reader["Stock"])); 
+                        Product product = new Product(reader["Name"].ToString().ToUpper(), Convert.ToDouble(reader["Price"]), Convert.ToInt32(reader["Stock"]));
                         products.Add(product);
                     }
                 }
@@ -79,8 +76,8 @@ public class SQLLiteProductRepository : IProductRepository
                     if (reader.Read())
                     {
 
-                        Product product = new Product(reader["Name"].ToString(),Convert.ToDouble(reader["Price"]),Convert.ToInt32(reader["Stock"]));
-                        return  product;
+                        Product product = new Product(reader["Name"].ToString().ToUpper(), Convert.ToDouble(reader["Price"]), Convert.ToInt32(reader["Stock"]));
+                        return product;
                     }
                     return null;
                 }
@@ -96,7 +93,7 @@ public class SQLLiteProductRepository : IProductRepository
             string query = "INSERT INTO Products (Name, Price, Stock) VALUES (@Name, @Price, @Stock)";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@Name", product.Name);
+                command.Parameters.AddWithValue("@Name", product.Name.ToUpper());
                 command.Parameters.AddWithValue("@Price", product.Price);
                 command.Parameters.AddWithValue("@Stock", product.Stock);
                 command.ExecuteNonQuery();
@@ -112,7 +109,7 @@ public class SQLLiteProductRepository : IProductRepository
             string query = "UPDATE Products SET Price = @Price, Stock = @Stock WHERE Name = @Name";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@Name", product.Name);
+                command.Parameters.AddWithValue("@Name", product.Name.ToUpper());
                 command.Parameters.AddWithValue("@Price", product.Price);
                 command.Parameters.AddWithValue("@Stock", product.Stock);
                 command.ExecuteNonQuery();
@@ -128,12 +125,12 @@ public class SQLLiteProductRepository : IProductRepository
             string query = "DELETE FROM Products WHERE Name = @Name";
             using (SQLiteCommand command = new SQLiteCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@Name", name);
+                command.Parameters.AddWithValue("@Name", name.ToUpper());
                 command.ExecuteNonQuery();
             }
         }
     }
 
-  
+
 }
 
