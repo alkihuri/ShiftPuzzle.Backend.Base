@@ -3,9 +3,12 @@ namespace PracticeABC;
 using System.Data.SQLite; 
 using System.Collections.Generic; 
 
-public class SqlLiteProductRepository
+ 
+
+
+public class SQLLiteProductRepository : IProductRepository
 {
-    private readonly string _connectionString;
+    private string _connectionString;
     private List<Product> products = new List<Product>();
     private const string CreateTableQuery = @"
         CREATE TABLE IF NOT EXISTS Products (
@@ -14,12 +17,15 @@ public class SqlLiteProductRepository
             Price REAL NOT NULL,
             Stock INTEGER NOT NULL
         )";
-    public SqlLiteProductRepository(string connectionString)
+    public SQLLiteProductRepository(string connectionString)
     {
-        _connectionString = connectionString;
+         _connectionString = connectionString;
         InitializeDatabase();
         ReadDataFromDatabase();
     }
+
+   
+
 
     private void ReadDataFromDatabase()
     {
@@ -127,5 +133,7 @@ public class SqlLiteProductRepository
             }
         }
     }
+
+  
 }
 
