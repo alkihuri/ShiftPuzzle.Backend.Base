@@ -17,10 +17,10 @@ public class StoreController : ControllerBase
     
     private readonly ProductRepository _productRepository;
 
-        public StoreController(ProductRepository productRepository)
-        {
-            _productRepository = productRepository;
-        }
+    public StoreController(ProductRepository productRepository)
+    {
+        _productRepository = productRepository;
+    }
 
         [HttpPost]
         [Route("/store/updateprice")]
@@ -88,7 +88,7 @@ public class StoreController : ControllerBase
         [HttpPost]
         [Route("/store/add")]
         public IActionResult Add([FromBody] Product newProduct)
-        {
+        { 
             _productRepository.AddProduct(newProduct);
             return Ok(_productRepository.GetAllProducts());
         }

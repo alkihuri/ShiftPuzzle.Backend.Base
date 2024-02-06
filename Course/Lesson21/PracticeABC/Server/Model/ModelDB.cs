@@ -6,8 +6,14 @@ using System.Collections.Generic;
 public class ProductRepository
 {
     private readonly string _connectionString;
-    private const string CreateTableQuery = "CREATE TABLE IF NOT EXISTS Products (Name TEXT PRIMARY KEY, Price REAL, Stock INTEGER)";
-
+    private List<Product> products = new List<Product>();
+    private const string CreateTableQuery = @"
+        CREATE TABLE IF NOT EXISTS Products (
+            Id INTEGER PRIMARY KEY,
+            Name TEXT NOT NULL,
+            Price REAL NOT NULL,
+            Stock INTEGER NOT NULL
+        )";
     public ProductRepository(string connectionString)
     {
         _connectionString = connectionString;
@@ -22,14 +28,13 @@ public class ProductRepository
 
     private void InitializeDatabase()
     {
-        using (SQLiteConnection connection = new SQLiteConnection(_connectionString))
-        {
-            connection.Open();
-            using (SQLiteCommand command = new SQLiteCommand(CreateTableQuery, connection))
-            {
-                command.ExecuteNonQuery();
-            }
-        }
+        SQLiteConnection connection = new SQLiteConnection(_connectionString); 
+        Console.WriteLine("База данных :  " + _connectionString + " создана");
+        connection.Open();
+        SQLiteCommand command = new SQLiteCommand(CreateTableQuery, connection);
+        command.ExecuteNonQuery();
+             
+        
     }
 
     public List<Product> GetAllProducts()
@@ -45,12 +50,7 @@ public class ProductRepository
                 {
                     while (reader.Read())
                     {
-                        Product product = new Product
-                        {
-                            Name = reader["Name"].ToString(),
-                            Price = Convert.ToDouble(reader["Price"]),
-                            Stock = Convert.ToInt32(reader["Stock"])
-                        };
+                        Product product = new Product(reader["Name"].ToString(),Convert.ToDouble(reader["Price"]),Convert.ToInt32(reader["Stock"])); 
                         products.Add(product);
                     }
                 }
@@ -72,12 +72,9 @@ public class ProductRepository
                 {
                     if (reader.Read())
                     {
-                        return new Product
-                        {
-                            Name = reader["Name"].ToString(),
-                            Price = Convert.ToDouble(reader["Price"]),
-                            Stock = Convert.ToInt32(reader["Stock"])
-                        };
+
+                        Product product = new Product(reader["Name"].ToString(),Convert.ToDouble(reader["Price"]),Convert.ToInt32(reader["Stock"]));
+                        return  product;
                     }
                     return null;
                 }
