@@ -3,15 +3,23 @@
 ---
 # Практика А:
 
-1. Рефакторинг серверной части [Server/StoreController.cs] [Server/DBModel.cs] 
+1. Запустить локально фронтенд и бекенд [Server->wwwroot->index.html]
+
+> подсказка : в браузере будет доступно по такому адерсу http://localhost:5087/index.html
 
 
 ---
 # Практика В: 
 
-1. Рефакторинг серверной части [Server/StoreController.cs] [Server/DBModel.cs] 
+1. Рефакторинг серверной части  [Server/Model/Product.cs] 
+- изменить ограничение по вводу значений цены:
+> подсказка 
+```C#
+    [Range(0.01, 10000)]
+    public double Price { get; set; }
+```
 ---
 # Практика C:
 
-1.   Рефакторинг серверной части [Server/StoreController.cs] [Server/DBModel.cs]
+1.   Решить задачи в папке [IntefacesTasks]
  
