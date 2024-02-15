@@ -14,6 +14,27 @@
 1. Решить задачи в папке AssyncTasks
 
 
+> Подсказки:
+## Загрузка файла из сети по URL и сохранение его локально
+
+```csharp
+string url = "https://emojiisland.com/cdn/shop/products/Emoji_Icon_-_Clown_emoji_large.png";
+string localFilePath = "clown.png";
+await DownloadFileAsync(url, localFilePath);
+```
+## Асинхронное чтение и запись файлов
+```csharp
+string filePath = "input.txt";
+await WriteToFileAsync(filePath, "Привет, мир!");
+await ReadFromFileAsync(filePath);
+```
+## Выполнение параллельных HTTP-запросов к нескольким серверам
+```csharp
+List<string> urls = new List<string> { "http://google.com", "http://yandex.ru", "http://yahoo.com" };
+await FetchDataAsync(urls);
+```
+
+
 
 
 # Практика C:
