@@ -6,12 +6,21 @@ namespace PracticeABC
 
     public class EFCoreProductRepository : IProductRepository
     {
+
+         // событие добавления продукта
         private readonly ProductContext _context;
 
         public EFCoreProductRepository(ProductContext context)
         {
-            _context = context;
+            _context = context;  
+            OnProductAdded  +=   SendNotificationToStatDepartmetn;  
         }
+
+        private void SendNotificationToStatDepartmetn()
+        {
+           Console.WriteLine("Отправляю отчет в отдел статистики...");
+        }
+ 
 
         public List<Product> GetAllProducts()
         {
@@ -27,6 +36,8 @@ namespace PracticeABC
         {
             _context.Products.Add(product);
             _context.SaveChanges();  
+
+            // вызов события добавления продукта
         }
 
         public void UpdateProduct(Product product)
