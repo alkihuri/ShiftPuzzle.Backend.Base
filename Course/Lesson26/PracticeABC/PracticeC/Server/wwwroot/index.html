@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        form {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Простой фронтенд для бэкенда</h1>
+
+    <form id="productForm">
+        <label for="productName">Название продукта:</label>
+        <input type="text" id="productName" required>
+
+        <label for="productPrice">Цена:</label>
+        <input type="number" id="productPrice" min="0.01" step="0.01" required>
+
+        <label for="productStock">Количество на складе:</label>
+        <input type="number" id="productStock" min="0" required>
+
+        <button type="submit">Добавить продукт</button>
+    </form>
+
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>Название продукта</th>
+                <th>Цена</th>
+                <th>Количество на складе</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        document.getElementById('productForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const productName = document.getElementById('productName').value;
+            const productPrice = document.getElementById('productPrice').value;
+            const productStock = document.getElementById('productStock').value;
+
+            const newProduct = {
+                name: productName,
+                price: parseFloat(productPrice),
+                stock: parseInt(productStock)
+            };
+
+            const response = await fetch('http://localhost:5087/store/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newProduct)
+            });
+
+            if (response.ok) {
+                const productData = await response.json();
+                updateProductTable(productData);
+                clearFormInputs();
+            } else {
+                console.error('Ошибка при добавлении продукта');
+            }
+        });
+
+        function updateProductTable(products) {
+            const tableBody = document.querySelector('#productTable tbody');
+            tableBody.innerHTML = '';
+
+            products.forEach(product => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${product.name}</td>
+                    <td>${product.price}</td>
+                    <td>${product.stock}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function clearFormInputs() {
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            document.getElementById('productStock').value = '';
+        }
+
+        async function loadProducts() {
+            const response = await fetch('http://localhost:5087/store/show');
+            if (response.ok) {
+                const products = await response.json();
+                updateProductTable(products);
+            } else {
+                console.error('Ошибка при загрузке продуктов');
+            }
+        }
+
+        loadProducts();
+    </script>
+</body>
+</html>
