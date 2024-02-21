@@ -8,7 +8,15 @@
 --- 
 # Практика B: 
 
-1.  Решить 
+1.  Добавить в решение событие завершение доставки
+
+> Подсказка: 
+```C#
+    public static async Task TestOrderDeliveredAsync(string order, string dateTime)
+    {
+        Console.WriteLine($"Order '{order}' delivered async. At time {dateTime}");
+    }
+```
 
 --- 
 # Практика C:
