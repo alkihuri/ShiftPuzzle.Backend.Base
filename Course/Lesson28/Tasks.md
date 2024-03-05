@@ -5,9 +5,12 @@
 
 1. Создать приложение WEB API
 
-> ПОДСКАЗКА: 
-
- ```dotnet new webapi --use-controllers -o EasyTaskTrackerAPI```
+> CLI команды для настройки проекта: 
+ 
+```dotnet new webapi -name EasyTaskTrackerAPI```
+```dotnet add package Microsoft.EntityFrameworkCore```
+```dotnet add package Microsoft.EntityFrameworkCore.Sqlite```
+ 
 
 --- 
 # Практика B: 
