@@ -32,14 +32,8 @@ public class TaskContrller : ControllerBase
 
     [HttpGet("/api/tasks/delete/{id}")]
     public void Delete(int id)
-    {
-        var tasks = _taskManager.GetAllTasks();
-
-        if(tasks.Count < 1)
-            throw new Exception("No tasks found");
-
-        TrackerTask targetTask = tasks.FirstOrDefault(t => t.ID == id);
-        _taskManager.DeleteTask(targetTask);
+    {  
+       _taskManager.DeleteTask(id);
     }
 
 

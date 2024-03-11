@@ -13,9 +13,9 @@ public class TaskRepository : ITaskRepository
         _context.SaveChanges();
     }
 
-    public void DeleteTask(TrackerTask taskId)
+    public void DeleteTask(int taskId)
     {
-        var task = _context.TrackerTasks.FirstOrDefault(t => t.ID == taskId.ID);
+        var task = _context.TrackerTasks.FirstOrDefault(t => t.ID == taskId);
         if (task != null)
         {
             _context.TrackerTasks.Remove(task);

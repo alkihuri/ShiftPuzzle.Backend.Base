@@ -12,7 +12,7 @@ public class TaskManager : ITaskManager
         _taskRepository.AddTask(task);
     }
 
-    public void DeleteTask(TrackerTask taskId)
+    public void DeleteTask(int taskId)
     { 
         _taskRepository.DeleteTask(taskId);
     }

@@ -15,7 +15,7 @@ public class TaskManager : ITaskManager
     public void DeleteTask(int taskId)
     { 
         _taskRepository.DeleteTask(taskId);
-    }
+    } 
 
     public List<TrackerTask> GetAllTasks()
     { 
