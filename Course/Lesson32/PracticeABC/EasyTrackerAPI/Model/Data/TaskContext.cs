@@ -12,13 +12,11 @@ public class TaskTrackerContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<TrackerTask>().HasKey(t => t.ID);  
-        
-        
-       modelBuilder.Entity<User>()
-            .HasMany(u => u.Tasks)
-            .WithOne(t => t.AssignedUser)
-            .HasForeignKey(t => t.ID);
+        modelBuilder.Entity<TrackerTask>().HasKey(t => t.ID);    
+        modelBuilder.Entity<User>()
+                .HasMany(u => u.Tasks)
+                .WithOne(t => t.AssignedUser)
+                .HasForeignKey(t => t.ID);
 
     }
    
