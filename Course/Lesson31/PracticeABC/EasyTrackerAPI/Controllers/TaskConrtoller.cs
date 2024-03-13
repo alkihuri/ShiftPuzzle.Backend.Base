@@ -46,7 +46,7 @@ public class TaskContrller : ControllerBase
             try
             {
                 var tasks = _taskManager.GetAllTasks(); 
-                lastTaskID = tasks.Max(t => t.ID);   
+                lastTaskID = (int)tasks.Max(t => t.ID);   
             } 
             catch
             {
@@ -58,6 +58,8 @@ public class TaskContrller : ControllerBase
             newTask.ID = lastTaskID + x;       
             newTask.Name = randomName;  
             newTask.Description = "This is a random task";   
+            newTask.DueDate = new DateTime();
+            newTask.AssignedUser = new User("user_xxx");
             _taskManager.AddTask(newTask); 
          }
     }
