@@ -121,31 +121,31 @@
 
             // Function to refresh the task list
             // Function to refresh the task list
-const refreshTasks = () => {
-    fetch('/api/tasks/getall')
-        .then(response => response.json())
-        .then(tasks => {
-            taskList.innerHTML = '';
-            tasks.forEach(task => {
-                const taskItem = document.createElement('div');
-                taskItem.classList.add('taskItem');
-                taskItem.innerHTML = `
-                    <div class="taskDescription">
-                        <p><label>ID:</label> ${task.id}</p>
-                        <p><label>Название:</label> ${task.name}</p>
-                        <p><label>Описание:</label> ${task.description}</p>
-                        <p><label>Назначенный пользователь:</label> ${task.assignedUser ? task.assignedUser.name : 'Не назначено'}</p>
-                        <p><label>Статус:</label> ${task.isComplete ? 'Завершено' : 'Не завершено'}</p>
-                    </div>
-                    <button onclick="completeTask(${task.id})" class="complete">Завершить</button>
-                    <button onclick="deleteTask(${task.id})" class="delete">Удалить</button>
-                    <hr>
-                `;
-                taskList.appendChild(taskItem);
-            });
-        })
-        .catch(error => console.error('Error fetching tasks:', error));
-};
+    const refreshTasks = () => {
+        fetch('/api/tasks/getall')
+            .then(response => response.json())
+            .then(tasks => {
+                taskList.innerHTML = '';
+                tasks.forEach(task => {
+                    const taskItem = document.createElement('div');
+                    taskItem.classList.add('taskItem');
+                    taskItem.innerHTML = `
+                        <div class="taskDescription">
+                            <p><label>ID:</label> ${task.id}</p>
+                            <p><label>Название:</label> ${task.name}</p>
+                            <p><label>Описание:</label> ${task.description}</p>
+                            <p><label>Назначенный пользователь:</label> ${task.assignedUser ? task.assignedUser.name : 'Не назначено'}</p>
+                            <p><label>Статус:</label> ${task.isComplete ? 'Завершено' : 'Не завершено'}</p>
+                        </div>
+                        <button onclick="completeTask(${task.id})" class="complete">Завершить</button>
+                        <button onclick="deleteTask(${task.id})" class="delete">Удалить</button>
+                        <hr>
+                    `;
+                    taskList.appendChild(taskItem);
+                });
+            })
+            .catch(error => console.error('Error fetching tasks:', error));
+    };
 
             // Handler for submitting the create task form
             createTaskForm.addEventListener('submit', event => {
