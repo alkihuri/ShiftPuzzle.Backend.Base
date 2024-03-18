@@ -9,7 +9,7 @@
 
 --- 
 # Практика B: 
-1. Создать релиз билд => ```bash dotnet publish -c Release -o publish```
+1. Создать релиз билд => ``` dotnet publish -c Release -o publish```
 2.  Создать архив  
 > ПОДСКАЗКА:  
 # ВАЖНО(!) Не папки а именно файлов внутри 
