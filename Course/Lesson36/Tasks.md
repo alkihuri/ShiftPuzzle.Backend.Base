@@ -55,9 +55,13 @@ public bool VerifyAccount(User account)
 
 >> СПИСКИ ENDPOINT`ОВ:
 
+
 >>> [HttpPost("api/account/verify")]      
+
 >>> [HttpPost("/api/account/register")]   
+
 >>> [HttpGet("/api/account/get/{name}")] 
+
 >>> [HttpGet("/api/account/getall")]
 
 
