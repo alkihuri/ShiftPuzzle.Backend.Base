@@ -101,5 +101,15 @@ class Response
 --- 
 # Практика C:
 
-1. Реализовать журналирование каждого шага пользователей в таск трекере в файл ActionsLog.csv
+1. Реализовать журналирование каждого шага пользователей в работе с ЗАДАЧАМИ и с Аккаунтом в таск трекере в файл ActionsLog.csv
 где указаны : 1. Дата 2. Пользователь 3. Действие
+
+>Подсказка: 
+
+```
+    public static void Logger(User account,string action)
+    { 
+        string logMessage = $"{account.Name},{account.Password},{DateTime.Now},{action}\n"; 
+        File.AppendAllText("ActionsLog.csv", logMessage);
+    }
+```
