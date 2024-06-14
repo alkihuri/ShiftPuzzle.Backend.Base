@@ -1,4 +1,4 @@
-namespace PracticeA;
+namespace PracticeABC;
 
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Text; 
 using System.Threading.Tasks;
 using System.Collections.Generic;
+
 [ApiController]
 public class StoreController : ControllerBase
 {
@@ -43,7 +44,6 @@ public class StoreController : ControllerBase
 
     }
 
-
     private List<Product> Items = new List<Product>();
 
     // поле с путем до базы данных 
@@ -52,8 +52,6 @@ public class StoreController : ControllerBase
     {
        // чтение
     }
-
-
 
     [HttpPost]
     [Route("/store/updateprice")]
@@ -87,7 +85,6 @@ public class StoreController : ControllerBase
         }
     }
 
-
     [HttpGet]
     [Route("/store/outofstock")]
     public IActionResult OutOfStock()
@@ -102,8 +99,6 @@ public class StoreController : ControllerBase
             return Ok("Все продукты в наличии");
         }
     }
-
-
 
     [HttpPost]
     [Route("/store/auth")]
@@ -121,8 +116,6 @@ public class StoreController : ControllerBase
 
     }
 
-
-
     [HttpPost]
     [Route("/store/add")]
     public IActionResult Add([FromBody] Product newProduct)
@@ -131,7 +124,6 @@ public class StoreController : ControllerBase
         // запись
         return Ok(Items);
     }
-
 
     [HttpPost]
     [Route("/store/delete")]
@@ -148,8 +140,7 @@ public class StoreController : ControllerBase
             return NotFound($"{name} не найден");
         }
     }
-
-
+    
     [HttpGet]
     [Route("/store/show")]
     public IActionResult Show()
@@ -166,6 +157,4 @@ public class StoreController : ControllerBase
     {
         // опишу логику
     }
-
-
 }

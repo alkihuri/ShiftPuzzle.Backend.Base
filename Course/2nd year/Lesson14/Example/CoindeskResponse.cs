@@ -1,8 +1,7 @@
 namespace Example
 {
-
-
-    public class CoindeskResponse // основной класс для десериализации
+    // основной класс для десериализации
+    public class CoindeskResponse
     {
         public Time time { get; set; }
         public string disclaimer { get; set; }
@@ -10,7 +9,8 @@ namespace Example
         public Bpi bpi { get; set; }
     }
 
-     public class Bpi // ниже второстепенные классы, объекты которых вложенны в основной CoindeskResponse (а также друг в друга)
+    // ниже второстепенные классы, объекты которых вложенны в основной CoindeskResponse (а также друг в друга)
+    public class Bpi
     {
         public USD USD { get; set; }
         public GBP GBP { get; set; }

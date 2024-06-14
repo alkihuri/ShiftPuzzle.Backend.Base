@@ -1,6 +1,15 @@
 {
-    "id": 12345,
-    "name": "Иван Иванов",
-    "email": "ivanov@example.com",
-    "isVerified": true
+    "libraryName": "Городская библиотека",
+    "books": [
+        {
+            "title": "Война и мир",
+            "author": "Лев Толстой",
+            "year": 1869
+        },
+        {
+            "title": "Мастер и Маргарита",
+            "author": "Михаил Булгаков",
+            "year": 1967
+        }
+    ]
 }

@@ -76,7 +76,7 @@ public class StudetnFileService
 {
     if (!File.Exists(filePath))
     {
-        Console.WriteLine("���� �� ������.");
+        Console.WriteLine("Файл не найден.");
         return;
     }
 
@@ -88,20 +88,20 @@ public class StudetnFileService
             var parts = line.Split(',');
             if (parts.Length < 3)
             {
-                continue; // ������� � ��������� ������, ���� ������ �������
+                continue; // Переход к следующей строке, если формат неверен
             }
 
             var studentName = parts[0];
             var student = new Student(studentName);
 
-            // ������ ������
+            // Чтение оценок
             var gradesPart = parts[1].Split(':');
             if (gradesPart.Length == 2 && int.TryParse(gradesPart[1], out int grade))
             {
                 student.Grades.Add(gradesPart[0], grade);
             }
 
-            // ������ ������ � ������������
+            // Чтение данных о посещаемости
             var attendancePart = parts[2].Split(':');
             if (attendancePart.Length == 2 && DateTime.TryParse(attendancePart[0], out DateTime date) && bool.TryParse(attendancePart[1], out bool wasPresent))
             {

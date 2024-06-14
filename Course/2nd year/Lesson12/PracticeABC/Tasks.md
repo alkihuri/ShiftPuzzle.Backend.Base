@@ -1,11 +1,8 @@
 # Задачи по работе с JSON
 
-Привет! 
-
 **Практика A:**
 
-1. Проверить с помощью инструмента https://jsonformatter.curiousconcept.com/ 10 json файловв папке *broken_json_files*
-
+1. Проверить с помощью инструмента https://jsonformatter.curiousconcept.com/ 10 json файлов папке *broken_json_files*
 
 **Практика B:**
 1. Создать C# console проект
