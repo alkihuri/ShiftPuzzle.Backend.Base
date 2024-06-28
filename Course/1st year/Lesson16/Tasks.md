@@ -1,21 +1,59 @@
-# Структура проекта
+**Практика А**
 
-# В решении два C# проекта: 
+1. Создайте абстрактный класс Expression, содержащий абстрактный метод Evaluate, который принимает словарь переменных.
+2. Создайте класс Constant, наследующий от Expression, который содержит одно поле Value типа double. Реализуйте метод Evaluate, чтобы он возвращал значение этого поля.
+3. Создайте класс Variable, наследующий от Expression, который содержит одно поле Name типа string. Реализуйте метод Evaluate, чтобы он возвращал значение переменной из переданного словаря.
 
-1. Консольное приложение Client (пустое)
-2. Серверное приложение webapi Server (готовые GET запросы)
+Пример кода для проверки:
 
+`
+class Program
+{
+    static void Main(string[] args)
+    {
+        Expression constant = new Constant(5);
+        Expression variable = new Variable("x");
 
-# ПрактикаA:
+        var variables = new Dictionary<string, double>
+        {
+            { "x", 10 }
+        };
 
-1. Измени GET метод для добавления продукта на POST метод
-2. Запусти проверь с помощью http://localhost:5087/store/show     5087 = порт
+        Console.WriteLine(constant.Evaluate(variables)); // Output: 5
+        Console.WriteLine(variable.Evaluate(variables)); // Output: 10
+    }
+}
+`
 
+**Практика B**
 
-# Практика B:
-1. Создать метод авторизации и логику авторизации.
-> подсказка : используйте bool свойство IsAuthorized, которая перерключается в True после POST метода авторизации
+1. Создайте абстрактный класс BinaryOperation, наследующий от Expression. Он должен содержать два поля Left и Right типа Expression.
+2. Создайте классы Addition, Subtraction, Multiplication, Division, наследующие от BinaryOperation. Реализуйте метод Evaluate для каждого класса, чтобы он выполнял соответствующую математическую операцию.
 
+Пример кода для проверки:
 
-# Практика C:
-1. Переделай методы `UpdateName` и `Delete` в POST методы
+`
+class Program
+{
+    static void Main(string[] args)
+    {
+        Expression addition = new Addition(new Constant(5), new Variable("x"));
+        Expression multiplication = new Multiplication(new Constant(2), new Variable("y"));
+
+        var variables = new Dictionary<string, double>
+        {
+            { "x", 10 },
+            { "y", 3 }
+        };
+
+        Console.WriteLine(addition.Evaluate(variables)); // Output: 15
+        Console.WriteLine(multiplication.Evaluate(variables)); // Output: 6
+    }
+}
+`
+
+**Практика С**
+
+1. Создайте сложное выражение, например: (x + 2) * (y - 3).
+2. Реализуйте в классе Division проверку на деление на ноль. Если делитель равен нулю, выбрасывайте исключение DivideByZeroException.
+3. Напишите программу, которая создаст несколько сложных выражений и вычислит их, выводя результаты на экран.
