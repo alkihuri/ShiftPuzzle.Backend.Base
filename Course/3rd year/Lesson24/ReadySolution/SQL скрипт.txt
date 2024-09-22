@@ -1,0 +1,135 @@
+1. Запрос для выборки всех заказов с подробной информацией о клиентах и продуктах
+
+SELECT 
+    o.id AS order_id,
+    c.customer_name,
+    p.product_name,
+    p.price,
+    od.quantity,
+    (p.price * od.quantity) AS total_price
+FROM 
+    orders o
+INNER JOIN customers c ON o.customer_id = c.id
+INNER JOIN order_details od ON o.id = od.order_id
+INNER JOIN products p ON od.product_id = p.id;
+
+2. Запрос для выборки всех клиентов и их заказов, включая клиентов без заказов
+
+SELECT 
+    c.customer_name,
+    o.id AS order_id,
+    o.order_date
+FROM 
+    customers c
+LEFT JOIN orders o ON c.id = o.customer_id;
+
+3. Запрос для выборки всех продуктов и заказов, включая продукты, которые не были заказаны
+
+SELECT 
+    p.product_name,
+    od.order_id,
+    od.quantity
+FROM 
+    products p
+LEFT JOIN order_details od ON p.id = od.product_id;
+
+4. Запрос для выборки всех клиентов и продуктов
+
+SELECT 
+    c.customer_name,
+    p.product_name
+FROM 
+    customers c
+CROSS JOIN products p;
+
+5. Запрос для выборки пар продуктов одной категории с разными ценами
+
+SELECT 
+    p1.product_name AS product_1,
+    p2.product_name AS product_2,
+    p1.price AS price_1,
+    p2.price AS price_2
+FROM 
+    products p1
+JOIN products p2 ON p1.category_id = p2.category_id AND p1.id <> p2.id
+WHERE 
+    p1.price <> p2.price;
+
+6. Запрос, который вернет список клиентов и общую сумму, которую каждый клиент потратил на все свои заказы. Отобразите только тех клиентов, которые потратили более 100 единиц валюты.
+
+SELECT 
+    c.customer_name,
+    SUM(p.price * od.quantity) AS total_spent
+FROM 
+    customers c
+INNER JOIN orders o ON c.id = o.customer_id
+INNER JOIN order_details od ON o.id = od.order_id
+INNER JOIN products p ON od.product_id = p.id
+GROUP BY 
+    c.customer_name
+HAVING 
+    total_spent > 100;  -- Фильтрация клиентов, потративших более 100
+
+7. Запрос, который выведет всех клиентов, которые еще не сделали ни одного заказа и найдите тех клиентов, у которых нет связанных записей в таблице orders.
+
+SELECT 
+    c.customer_name,
+    o.id AS order_id
+FROM 
+    customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+WHERE 
+    o.id IS NULL;  -- Клиенты без заказов
+
+8. Запрос, который выведет все продукты, которые не были куплены ни в одном заказе и отфильтруйте результаты, чтобы показать только те продукты, которые не имеют связанных записей в order_details.
+
+SELECT 
+    p.product_name
+FROM 
+    products p
+LEFT JOIN order_details od ON p.id = od.product_id
+WHERE 
+    od.product_id IS NULL;  -- Продукты, которые не были куплены
+
+9. Запрос, который вернет полный список всех клиентов и продуктов, независимо от того, сделали ли клиенты заказы или были ли проданы продукты. Поскольку SQLite не поддерживает FULL OUTER JOIN, эмулируйте его с помощью UNION ALL для комбинации результатов LEFT JOIN и RIGHT JOIN.
+
+-- Клиенты и их заказы
+SELECT 
+    c.customer_name,
+    o.id AS order_id,
+    p.product_name,
+    od.quantity
+FROM 
+    customers c
+LEFT JOIN orders o ON c.id = o.customer_id
+LEFT JOIN order_details od ON o.id = od.order_id
+LEFT JOIN products p ON od.product_id = p.id
+
+UNION ALL
+
+-- Продукты, не заказанные клиентами
+SELECT 
+    c.customer_name,
+    o.id AS order_id,
+    p.product_name,
+    od.quantity
+FROM 
+    products p
+LEFT JOIN order_details od ON p.id = od.product_id
+LEFT JOIN orders o ON od.order_id = o.id
+LEFT JOIN customers c ON o.customer_id = c.id
+WHERE 
+    o.id IS NULL OR c.id IS NULL;
+
+10. Запрос, который найдет все возможные комбинации продуктов для заказа, исключая продукты из категории "Электроника". Используйте CROSS JOIN, чтобы создать полное декартово произведение всех продуктов.
+
+SELECT 
+    p1.product_name AS product_1,
+    p2.product_name AS product_2
+FROM 
+    products p1
+CROSS JOIN products p2
+WHERE 
+    p1.id <> p2.id
+    AND p1.category_id NOT IN (SELECT id FROM categories WHERE category_name = 'Электроника')
+    AND p2.category_id NOT IN (SELECT id FROM categories WHERE category_name = 'Электроника');

@@ -1,0 +1,6 @@
+@Mathematics.Division_HostAddress = http://localhost:5151
+
+GET {{Mathematics.Division_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

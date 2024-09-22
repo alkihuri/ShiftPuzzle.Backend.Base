@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  math-addition:
+    build:
+      context: ./Mathematics.Addition
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" 
+
+
+  math-multiplication:
+    build:
+      context: ./Mathematics.Multiplication
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+
+  math-division:
+    build:
+      context: ./Mathematics.Division
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+

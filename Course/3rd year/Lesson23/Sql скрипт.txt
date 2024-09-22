@@ -1,0 +1,29 @@
+CREATE TABLE departments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    department_name TEXT NOT NULL
+);
+
+CREATE TABLE employees (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    department_id INTEGER,
+    position TEXT,
+    salary REAL,
+    FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+INSERT INTO departments (department_name) VALUES 
+('Маркетинг'),
+('Разработка'),
+('Продажи'),
+('HR');
+
+INSERT INTO employees (name, department_id, position, salary) VALUES 
+('Иван Иванов', 2, 'Разработчик', 80000),
+('Анна Смирнова', 1, 'Маркетолог', 60000),
+('Петр Петров', 3, 'Менеджер по продажам', 70000),
+('Мария Кузнецова', 4, 'HR-специалист', 50000),
+('Ольга Сидорова', 2, 'Тестировщик', 55000),
+('Алексей Федоров', 2, 'Разработчик', 85000),
+('Елена Захарова', 1, 'Маркетолог', 62000),
+('Дмитрий Орлов', 3, 'Менеджер по продажам', 72000);

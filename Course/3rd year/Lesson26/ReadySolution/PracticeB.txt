@@ -1,0 +1,25 @@
+CREATE TABLE ReservationAttempts (
+    attempt_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    seat_id INTEGER,
+    attempt_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+    status TEXT,
+    error TEXT
+);
+
+-- Начало транзакции с блокировкой
+BEGIN IMMEDIATE TRANSACTION;
+
+-- Проверка наличия свободного места
+SELECT * FROM Seats WHERE seat_id = ? AND is_reserved = 0;
+
+-- Если место свободно, обновляем его статус
+UPDATE Seats SET is_reserved = 1 WHERE seat_id = ?;
+
+-- Добавление записи о резервации
+INSERT INTO Reservations (seat_id, reserved_at) VALUES (?, CURRENT_TIMESTAMP);
+
+-- Логгирование успешной попытки
+INSERT INTO ReservationAttempts (seat_id, attempt_time, status) VALUES (?, CURRENT_TIMESTAMP, 'SUCCESS');
+
+-- Завершение транзакции
+COMMIT;

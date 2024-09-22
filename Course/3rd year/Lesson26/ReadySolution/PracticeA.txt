@@ -1,0 +1,26 @@
+-- Создание таблиц
+CREATE TABLE Seats (
+    seat_id INTEGER PRIMARY KEY,
+    is_reserved INTEGER DEFAULT 0
+);
+
+CREATE TABLE Reservations (
+    reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    seat_id INTEGER,
+    reserved_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Начало транзакции
+BEGIN TRANSACTION;
+
+-- Проверка наличия свободного места
+SELECT * FROM Seats WHERE seat_id = ? AND is_reserved = 0;
+
+-- Если место свободно, обновляем его статус
+UPDATE Seats SET is_reserved = 1 WHERE seat_id = ?;
+
+-- Добавление записи о резервации
+INSERT INTO Reservations (seat_id, reserved_at) VALUES (?, CURRENT_TIMESTAMP);
+
+-- Завершение транзакции
+COMMIT;
