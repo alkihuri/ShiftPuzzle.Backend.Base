@@ -1,6 +1,0 @@
-@Mathematics.Multiplication_HostAddress = http://localhost:5159
-
-GET {{Mathematics.Multiplication_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

@@ -1,6 +1,0 @@
-@Mathematics.Addition_HostAddress = http://localhost:5265
-
-GET {{Mathematics.Addition_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
